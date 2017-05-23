@@ -1,0 +1,74 @@
+.card {
+  padding: 1em;
+  box-shadow: 0 0 5px darkgray;
+  transition: all .3s ease;
+  cursor: pointer;
+  margin-top: 0;
+  margin-bottom: 1em;
+
+  @media (min-width: 768px) {
+    margin-bottom: 2em;
+  }
+
+  &:hover {
+    transition: all .3s ease;
+    transform: translateY(-3px);
+    //margin-top: -3px;
+    //box-shadow: 0 0 22px rgba(250, 162, 38, .6);
+    box-shadow: 0 5px 40px darkgray;
+    //transform: scale(1.02);
+  }
+
+  &:focus {
+    outline: none;
+    transform: translateY(0);
+    box-shadow: 0 0 5px darkgray;
+  }
+
+  .card-img {
+    outline: none;
+    img {
+      width:100%;
+    }
+  }
+
+  .card-info {
+    font-family: "Arvo", "LatoWeb", Helvetica, Arial, sans-serif;
+    position: relative;
+    height: 140px;
+
+
+    @media (min-width: 768px) {
+      height: 175px;
+    }
+
+
+    .piece-title {
+      font-style: normal;
+      font-size: 18px;
+      letter-spacing: 0;
+    }
+    .piece-format {
+      font-style: italic;
+      font-size: 14px;
+      letter-spacing: 0;
+      margin: .5em 0;
+    }
+
+    .piece-footer {
+      //margin-top: 15%;
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+
+      .price {
+        font-family: "LatoWebRegular", Helvetica, Arial, sans-serif;
+        font-size: 26px;
+        color: @color-orange;
+        margin-bottom: 0;
+      }
+    }
+  }
+
+}

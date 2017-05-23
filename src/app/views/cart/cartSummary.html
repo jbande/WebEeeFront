@@ -1,0 +1,41 @@
+<div id="cartSummary" ng-controller="CartController as cartCtrl">
+  total de elementos:
+  {{cartCtrl.getItemCount()}} work(s) selected,
+  {{cartCtrl.getTotal() | currency}}
+  <div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+      <card
+        ng-repeat="card in cartCtrl.cardsToShow()"
+        data-id="{{ card.id }}"
+        data-img="{{ card.img }}"
+        data-title="{{ card.title }}"
+        data-format="{{ card.format }}"
+        data-collection="{{ card.collection }}"
+        data-crautor="{{ card.crautor }}"
+        data-credit="{{ card.credit }}"
+        data-de="{{ card.de }}"
+        data-cm="{{ card.cm }}"
+        data-rm="{{ card.rm }}"
+        data-dg="{{ card.dg }}"
+        data-pe="{{ card.pe }}"
+        data-price="{{ card.price }}"
+      />
+    </div>
+  </div>
+
+  <form name="shippingForm" novalidate>
+    <div ng-show="cartCtrl.checkout">
+      <p>{{cartCtrl.checkout_msg}}</p>
+      <div class="form-group">
+        <label>Mail</label>
+        <input
+          ng-model="cartCtrl.mailCheckout"
+          type="email"
+          placeholder="{{cartCtrl.mail_placeholder}}"
+          required>
+      </div>
+    </div>
+  </form>
+  <a href="/home.html">{{cartCtrl.back_btn}}</a>
+  <button ng-click="cartCtrl.checkoutClick()">{{cartCtrl.checkout_btn}}</button>
+</div>

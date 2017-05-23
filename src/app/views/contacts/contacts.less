@@ -1,0 +1,52 @@
+#contactsView {
+  #contactForm {
+    margin-bottom: 3em;
+
+    //.ng-invalid { background-color: lightpink; }
+    //.ng-valid { background-color: lightgreen; }
+
+    @media (min-width: 768px) {
+      margin-bottom: 0;
+    }
+  }
+
+  .ctc-inputs {
+    border-bottom: 1px solid darkgray;
+
+    input {
+      height: 2em;
+      margin: 2em 0 .5em 0;
+      width:100%;
+      border-color: darkgray;
+      padding-left: .2em;
+      font-size: 1.1rem;
+
+      &::-webkit-input-placeholder{
+        font-family: "LatoWebLight", Helvetica, Arial, sans-serif;
+        padding-left: .2em;
+        font-size: 1rem;
+      }
+
+      &:hover, &:focus {
+        border-color: @color-orange;
+      }
+    }
+
+    &:hover {
+      transition: all .3s ease-out;
+      border-bottom: 1px solid @color-orange;
+    }
+
+    &:focus {
+      transition: all .3s ease-out;
+      border-bottom: 2px solid @color-orange;
+    }
+
+  }
+
+  .ghost-btn {
+    margin-top: 6%;
+    //width: 80%;
+    float: right;
+  }
+}

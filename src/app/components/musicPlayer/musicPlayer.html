@@ -1,0 +1,30 @@
+<sound-manager></sound-manager>
+<button id="playMusic" play-all="fvm.songs">Play all</button>
+<div class="row">
+  <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 text-center" >
+    <img class="" style="width: 100%" ng-src="{{currentPlaying.cover}}" alt="">
+    <button class="link-btn snd-btns play-btn hidden-sm hidden-xs"
+            play-pause-toggle
+            data-play="{{fvm.songBtnLang[0].title}}"
+            data-pause="{{fvm.songBtnLang[1].title}}">{{fvm.songBtnLang[0].title}}</button>
+    <button class="ghost-btn snd-btns hidden-md hidden-lg"  play-pause-toggle data-play="{{fvm.songBtnLang[0].title}}" data-pause="{{fvm.songBtnLang[1].title}}">{{fvm.songBtnLang[0].title}}</button>
+    <button class="ghost-btn snd-btns hidden-md hidden-lg" stop-music>{{fvm.songBtnLang[2].title}}</button>
+  </div>
+  <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+    <p id="song-title">{{ currentPlaying.title }}</p>
+    <p id="song-artist">{{ currentPlaying.artist }}</p>
+    <div class="row">
+      <div class="col-xs-2 song-pos">
+        {{ currentPostion }}
+      </div>
+      <div class="col-xs-8">
+        <div class="seekBase" seek-track>
+          <div class="seekLoad" ng-style="{width : ( progress + '%' ) }"></div>
+        </div>
+      </div>
+      <div class="col-xs-2 song-pos">
+        {{ currentDuration }}
+      </div>
+    </div>
+  </div>
+</div>

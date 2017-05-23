@@ -1,0 +1,67 @@
+<navbar></navbar>
+
+<div class="container">
+  <div class="main-content">
+    <div id="contactsView" ng-controller="ContactsController as ctc" >
+      <div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-5 col-sm-offset-1 col-xs-12" id="contactForm">
+          <h3>{{ctc.labelContacts}}</h3>
+          <form name="contactForm" novalidate>
+            <div class="ctc-inputs">
+              <input name="name" type="text" ng-model="ctc.name" placeholder="{{ctc.placeholder.name}}" required>
+            </div>
+            <p class="input-error" ng-show="contactForm.name.$error.required">{{ctc.errorMsg[0].errorMsg}}</p>
+
+            <div class="ctc-inputs">
+              <input name="email" type="email" ng-model="ctc.mail" placeholder="{{ctc.placeholder.mail}}" required>
+            </div>
+            <p class="input-error" ng-show="contactForm.email.$error.required">{{ctc.errorMsg[1].errorMsg}}</p>
+
+            <div class="ctc-inputs">
+              <input type="text" ng-model="ctc.topic" placeholder="{{ctc.placeholder.topic}}">
+            </div>
+            <!--<p class="input-error">{{ctc.errorMsg[0].errorMsg}}</p>-->
+
+            <div class="ctc-inputs">
+              <input name="message" type="text" ng-model="ctc.msg" placeholder="{{ctc.placeholder.msg}}" value="{{ctc.autoFill}}" required>
+            </div>
+            <p class="input-error" ng-show="contactForm.message.$error.required">{{ctc.errorMsg[0].errorMsg}}</p>
+
+            <div class="row">
+              <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 pull-right">
+                <button ng-disabled="contactForm.$invalid" type="button" ng-click="ctc.submitUserMsg()" class="ghost-btn">{{ctc.sendBtn}}</button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="col-lg-5 col-md-5 col-sm-5 col-sm-offset-1 col-xs-12">
+          <h3>{{ctc.labelSuscribe}}</h3>
+          <p>{{ctc.suscribeWelcome}}</p>
+          <form name="suscribeForm" novalidate>
+            <div class="ctc-inputs">
+              <input name="suscribeinput" type="email" ng-model="ctc.suscribe" placeholder="{{ctc.placeholder.suscribe}}" required>
+            </div>
+            <p ng-show="suscribeForm.suscribeinput.$error.required" class="input-error">{{ctc.errorMsg[1].errorMsg}}</p>
+          </form>
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 checkbox">
+              <label>
+                <input ng-model="ctc.checkTerms" type="checkbox">
+                {{ctc.termsInfo}}
+              </label>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+              <button type="submit"
+                      ng-disabled="suscribeForm.$valid"
+                      class="ghost-btn">
+                {{ctc.suscribeBtn}}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<efooter></efooter>

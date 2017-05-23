@@ -1,0 +1,88 @@
+#vcard {
+  padding: 1em;
+  box-shadow: 0 0 5px darkgray;
+  transition: all .3s ease;
+  cursor: pointer;
+  margin-top: 0;
+  margin-bottom: 2em;
+  height: 530px;
+  position: relative;
+  //max-height: 190px;
+
+
+  &:hover {
+    transition: all .3s ease;
+    transform: translateY(-3px);
+    //margin-top: -3px;
+    //box-shadow: 0 0 22px rgba(250, 162, 38, .6);
+    box-shadow: 0 5px 40px darkgray;
+    //transform: scale(1.02);
+  }
+
+  .vcard-img {
+    img {
+      width:100%;
+    }
+  }
+
+  .vcard-info {
+    font-family: "Arvo", "LatoWeb", Helvetica, Arial, sans-serif;
+
+    .angular-ellipsis-append {
+      position: absolute;
+      bottom: 1.5em;
+      left: 0;
+      display: block;
+      outline: none;
+      transition: all .2s ease;
+      font-family: "LatoWebBold", Helvetica, Arial, sans-serif;
+      color: @color-orange;
+      font-size: 12px;
+      background-color: transparent;
+      text-transform: uppercase;
+      width: 100%;
+          padding: 1em;
+
+      &:hover {
+        transition: all .2s ease;
+        color: black;
+      }
+
+      &:active {
+        color: #dc8d25;
+      }
+    }
+    .piece-title {
+      font-style: normal;
+      font-size: 18px;
+      letter-spacing: 0;
+      margin-top: 1em;
+      height: 50px;
+      vertical-align: middle;
+    }
+    .piece-date {
+      font-style: italic;
+      color: darkgray;
+      font-size: 14px;
+      letter-spacing: 0;
+      margin: .5em;
+    }
+
+    .piece-footer {
+      margin-top: 1em;
+      p {
+        height: 130px;
+      }
+      .desc {
+        font-family: "LatoWeb", Helvetica, Arial, sans-serif;
+      }
+    }
+  }
+
+  .ghost-btn {
+    border: none;
+    position: absolute;
+    bottom: 1.5em;
+    left: 0;
+  }
+}

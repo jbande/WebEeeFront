@@ -1,0 +1,23 @@
+
+  <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+
+    <!--vcard-->
+    <div id="vcard">
+      <div class="vcard-img"> <!--directiva de la imagen-->
+        <img ng-src="{{vcvm.img}}" alt="Image">
+      </div>
+
+      <div class="vcard-info text-center">
+        <div class="piece-title">{{vcvm.title | CutText:50}}</div>
+        <div class="piece-date">{{vcvm.date}}</div>
+
+        <div class="piece-footer">
+          <p class="desc" ng-bind="vcvm.desc" ellipsis data-separator="" ellipsis-append="{{vcvm.seeMore}}" ellipsis-append-click="vcvm.seeMoreClick()"></p>
+          <!--<button class="ghost-btn" type="button">{{vcvm.seeMore}}</button>-->
+        </div> <!--piece footer-->
+
+      </div>
+    </div>
+    <!--vcard-->
+
+  </div>

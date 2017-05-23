@@ -1,0 +1,120 @@
+<div class="row" ng-controller="CtgController as cc">
+  <!--menu de la izquierda-->
+  <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+    <div class="left-menu">
+      <h3>{{vm.getTitle()}}</h3>
+      <ul>
+        <li class="lm-item"
+            ng-repeat="menu in vm.getMenu()"
+            ng-class="{'active': menu.active == true}"
+            ng-click="cc.loadCards(menu)">
+          <button>{{menu.title}}</button>
+        </li>
+        <li ng-if="!menuSelectedOne" class="lm-item"
+            ng-repeat="menu in cc.menuLeftGen"
+            ng-class="{'active': menu.active == true}"
+            ng-click="cc.loadCardsGen(menu)">
+          <button>{{menu.title}}</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!--contenido -->
+  <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+
+    <!--ordenar y cantidad de obras-->
+    <div class="filtros">
+      <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+          <p>Ordenar por</p>
+          <div dropdown-select="cc.ddSelectOptions" dropdown-model="ddSelectSelected" dropdown-item-label="opt"></div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right">
+          <p>{{ cc.numberOfCards }}</p>
+        </div>
+      </div>
+      <hr>
+    </div>
+
+
+    <!--real content-->
+    <div class="cards-content">
+      <div class="row">
+        <card ng-if="vm.actual_menu == 0"
+              ng-repeat="card in vm.getCards() | cardsToLoadFilter:vm.cards_in_category | orderBy:ddSelectSelected.value track by card.id"
+              data-id="{{ card.id }}"
+              data-img="{{ card.img }}"
+              data-title="{{ card.title }}"
+              data-format="{{ card.format }}"
+              data-collection="{{ card.collection }}"
+              data-crautor="{{ card.crautor }}"
+              data-credit="{{ card.credit }}"
+              data-de="{{ card.de }}"
+              data-cm="{{ card.cm }}"
+              data-rm="{{ card.rm }}"
+              data-dg="{{ card.dg }}"
+              data-pe="{{ card.pe }}"
+              data-price="{{ card.price }}"
+        ></card>
+        <lcard ng-if="vm.actual_menu == 1"
+               ng-repeat="card in vm.getCards() | cardsToLoadFilter:vm.cards_in_category | orderBy:ddSelectSelected.value track by card.id"
+               data-id="{{ card.id }}"
+               data-title="{{ card.title }}"
+               data-format="{{ card.format }}"
+               data-collection="{{ card.collection }}"
+               data-price="{{ card.price }}"
+               card-info="card">
+        </lcard>
+      </div>
+
+      <!--modal-->
+      <!--<div ng-controller="ModalController as mc"
+           update-card="vm.updateCard(card)">
+        <div id="modalDetail" class="modal" tabindex="-1" role="dialog">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="detail-modal">
+                <button class="link-btn" ng-click="mc.closeModal()"><i class="eee i-close"></i></button>
+                <div class="row con10t">
+                  <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+                    <div class="piece-title">{{mc.title}}</div>
+                    <div class="piece-format"></div>
+                    <div class="copyright">
+                      <p class="crautor"></p>
+                      <p class="credit"></p>
+                    </div>
+                    <b><p class="collection"></p></b>
+                    <span>{{mc.langDe}}<p class="de"></p></span>
+                    <span>{{mc.langCm}}<p class="cm">{{cvm.cm}}</p></span>
+                    <span>{{mc.langRm}}<p class="rm">{{cvm.rm}}</p></span>
+                    <span>{{mc.langDg}}<p class="dg">{{cvm.dg}}</p></span>
+                    <span>{{mc.langPe}}<p class="pe">{{cvm.pe}}</p></span>
+                    <div class="row piece-footer">
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                        <p class="price"></p>
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                        <button class="fill-btn" type="button" ng-click="mc.addToCart()">{{cvm.btnTitle}}</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-5 col-md-5 col-sm-5 hidden-xs">
+                    <div class="modal-img"> &lt;!&ndash;directiva de la imagen&ndash;&gt;
+                      <img class="container-img" ng-src="{{mc.img}}" alt="Partitura">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>&lt;!&ndash; /.modal-content &ndash;&gt;
+        </div>&lt;!&ndash; /.modal-dialog &ndash;&gt;
+      </div>&lt;!&ndash; /.modal &ndash;&gt;-->
+
+      <!--modal-->
+
+
+    </div> <!-- contenido-->
+  </div>
+</div>
+

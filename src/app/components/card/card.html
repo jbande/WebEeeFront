@@ -1,0 +1,74 @@
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+  <!--card-->
+  <div class="card" data-toggle="modal" data-target="#modal{{cvm.id}}">
+    <div class="row">
+      <div class="col-lg-3 col-md-3 col-sm-3 hidden-xs">
+        <div class="card-img"> <!--directiva de la imagen-->
+          <img ng-src="{{cvm.img}}" alt="Partitura">
+        </div>
+      </div>
+      <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+        <div class="card-info">
+          <div class="piece-title">{{cvm.title}}</div>
+          <div class="piece-format">{{cvm.format}}</div>
+          <div class="row piece-footer">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+              <p class="price">{{cvm.price | currency}}</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-center">
+              <button
+                type="button"
+                ng-click="cvm.addToCart()"
+                ng-class="{'fill-btn': !cvm.inCart, 'ghost-btn': cvm.inCart}">
+                {{cvm.btnTitle}}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--<div style="width: 100%; height: 100%;" ></div>-->
+  </div>
+  <!--card-->
+</div>
+
+
+
+<div id="modal{{cvm.id}}" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="detail-modal">
+        <button class="link-btn" ng-click="cvm.closeModal(this)"><i class="eee i-close"></i></button>
+        <div class="row con10t">
+          <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+            <div class="piece-title">{{cvm.title}}</div>
+            <div class="piece-format">{{cvm.format}}</div>
+            <div class="copyright">
+              <p class="crautor">© {{cvm.crautor}}</p>
+              <p class="credit">© {{cvm.credit}}</p>
+            </div>
+            <b><p class="collection">{{cvm.collection}}</p></b>
+            <span>{{cvm.langDe}}<p class="de">{{cvm.de}}</p></span>
+            <span>{{cvm.langCm}}<p class="cm">{{cvm.cm}}</p></span>
+            <span>{{cvm.langRm}}<p class="rm">{{cvm.rm}}</p></span>
+            <span>{{cvm.langDg}}<p class="dg">{{cvm.dg}}</p></span>
+            <span>{{cvm.langPe}}<p class="pe">{{cvm.pe}}</p></span>
+            <div class="row piece-footer">
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <p class="price">{{cvm.price}}</p>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <button class="fill-btn" type="button" ng-click="cvm.addToCart()">{{cvm.btnTitle}}</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-5 col-md-5 col-sm-5 hidden-xs">
+            <div class="modal-img"> <!--directiva de la imagen-->
+              <img class="container-img" ng-src="{{cvm.img}}" alt="Partitura">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->

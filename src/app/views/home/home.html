@@ -1,0 +1,43 @@
+<div ng-if="vm.error_trigger" id="global-error">
+  <div id="info" class="text-center">
+    <h3>{{vm.error_global_msg}}</h3>
+    <a href="/home.html">{{vm.error_global_btn}}</a>
+  </div>
+</div>
+
+<div ng-if="!vm.error_trigger" id="homeView">
+  <navbar />
+
+  <div ng-if="!vm.slidesUp" ng-class="{'animateUp': vm.slidesUp}" id="start">
+    <div class="animateUp socials over-all">
+      <div class="container">
+        <span>Follow us
+          <a href="{{vm.url_facebook}}" target="_blank"><i class="icons eee i-Facebook"></i></a>
+          <a href="{{vm.url_instagram}}" target="_blank"><i class="icons eee i-Twitter"></i></a>
+          <a href="{{vm.url_twitter}}" target="_blank"><i class="icons eee i-Instagram"></i></a>
+        </span>
+      </div>
+    </div>
+
+    <div class="over-all scroll-down text-center ">
+      <button class="link-btn" ng-click="vm.slideUp()"><span>SCROLL  <i class="eee i-mouse"></i>  DOWN </span></button>
+    </div>
+
+    <simple-slider style="width:100vw; height:100vh" transition-property="opacity" start-value="0" visible-value="1" end-value="0">
+      <div ng-repeat="slide in vm.slides">
+        <p id="frases" class="container">{{slide.phrase}}</p>
+        <img ng-src="{{slide.image}}" alt="{{slide.autor}}">
+      </div>
+      <!--<img ng-repeat="slide in vm.slides" ng-src="{{slide.image}}" alt="{{slide.autor}}">-->
+        <!--<p id="frases" class="container" ng-repeat="slide in vm.slides">{{slide.frase}}</p>-->
+    </simple-slider>
+  </div>
+
+  <div class="container">
+    <div class="main-content">
+      <div ng-include="vm.menuSelectedUrl"></div>
+    </div>
+  </div>
+
+  <efooter />
+</div>

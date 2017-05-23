@@ -1,0 +1,165 @@
+#efooter {
+  background-color: #8d8d8d;
+  position: inherit;
+  bottom: 0;
+  left:0;
+  right:0;
+  color: white;
+  padding: 1em;
+
+  .socials {
+    text-align: center;
+
+    #followUs {
+      //margin-bottom: 2em;
+    }
+
+    #socialIcons {
+      margin-top: 1em;
+      text-align: center;
+      a {
+        text-decoration: none;
+        color: white;
+        &:hover {
+          transition: all .3s ease;
+          color: #000;
+        }
+      }
+
+      .icons {
+        font-size: 2.5em;
+        margin: 0 .6em;
+        @media (min-width: 768px) {
+          font-size: 1.8em;
+          margin: 0 .5em;
+        }
+      }
+
+      @media (min-width: 768px) {
+        margin-top: 0;
+        text-align: right;
+      }
+
+    }
+
+    @media (min-width: 768px) {
+      text-align: right;
+    }
+
+  }
+
+  #legacy {
+    margin: 2em 0;
+
+    .link-btn {
+      font-size: 12px;
+    }
+
+    @media (min-width: 768px) {
+      margin: 0;
+      .link-btn {
+        font-size: 12px;
+      }
+    }
+  }
+
+  .link-btn {
+    color: white;
+    padding: .5em;
+    text-decoration: none;
+
+    &:hover {
+      color: #000;
+    }
+
+    @media (min-width: 768px) {
+      padding: 2em 0;
+    }
+  }
+
+  .ghost-btn {
+    font-size: .8em;
+    color: white;
+    border-color: white;
+    &:hover {
+      border-color: black;
+      color: #000;
+    }
+
+    @media (min-width: 768px) {
+      font-size: 12px;
+    }
+
+  }
+
+  .snd-btns {
+    margin: 1em 0;
+    width: 45%;
+
+    @media (min-width: 768px) {
+      width: 100%;
+      margin: 0;
+    }
+  }
+
+  .play-btn {
+    position: absolute;
+    top: 40%;
+    left: 0;
+    padding: 0;
+  }
+
+  #song-title {
+    text-align: center;
+    font-size: 1em;
+    font-family: "Arvo", "LatoWeb", Helvetica, Arial, sans-serif;
+    font-style: italic;
+
+    &:first-child {
+      margin-bottom: 0;
+    }
+
+    @media (min-width: 768px) {
+      font-size: .8em;
+      text-align: left;
+    }
+  }
+  #song-artist {
+    text-align: center;
+    font-size: .8em;
+    text-transform: uppercase;
+
+    @media (min-width: 768px) {
+      font-size: .7em;
+      text-align: left;
+      text-transform: none;
+    }
+  }
+
+  .song-pos {
+    font-size: 16px;
+    padding: 0;
+
+    @media (min-width: 768px) {
+      font-size: .7em;
+      text-align: center;
+    }
+
+  }
+
+  .seekBase {
+    height: 15px;
+    width: 100%;
+    border: 1px solid #cccccc;
+  }
+  .seekLoad {
+    height: 14px;
+    width: 0;
+    background-color: white;
+  }
+
+
+  @media (min-width: 768px) {
+    position: fixed;
+  }
+}

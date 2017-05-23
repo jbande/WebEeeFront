@@ -1,0 +1,250 @@
+.main-content {
+  .left-menu{
+    position: static;
+    @media (min-width: 768px) {
+      position: fixed;
+      width: 20%;
+    }
+
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+      overflow-x: auto;
+      @media (max-width: 990px) {
+        display: flex;
+        .lm-item {
+          margin-right: 2em;
+        }
+      }
+    }
+
+    .lm-item{
+      margin: 1em 0;
+      outline: none;
+      vertical-align: middle;
+      transition: all .2s ease-out;
+      border-left: 0 solid @color-orange;
+      width: auto;
+      @media (min-width: 768px) {
+        margin:2em 0;
+      }
+
+      &:hover {
+        transition: all .2s ease-out;
+        border-left: 3px solid @color-orange;
+        padding-left: 20px;
+
+        button {
+          color: @color-orange;
+        }
+      }
+
+      &:active {
+        transition: all .2s ease-out;
+        border-left: 3px solid black;
+        button {
+          transition: all .2s ease-out;
+          color: black;
+          outline: none;
+
+        }
+      }
+
+      button {
+        transition: all .2s ease-out;
+        text-decoration: none;
+        background: none;
+        border: none;
+        padding: 0;
+        text-align: left;
+        width: 75px;
+        color: black;
+        &:focus {outline: none;}
+
+        @media (min-width: 768px) {
+          width: auto;
+        }
+      }
+    }
+
+    li.active {
+      border-left: 3px solid @color-orange;
+      padding-left: 20px;
+      button{
+        background: none;
+        border: none;
+        padding: 0;
+        text-align: left;
+        color: @color-orange;
+      }
+    }
+  }
+
+  .filtros {
+    //position: fixed;
+    //padding-top: 5em;
+
+    p  {display: inline};
+
+    .wrap-dd-select {
+      position: relative;
+      display: inline;
+      width: 70%;
+      margin: 0;
+      padding: 0;
+      border-radius: 0;
+      border: none;
+      box-shadow: none;
+      font-weight: 400;
+      color: #5f6edc;
+
+      .dropdown {
+        width: 180px;
+
+        li:hover a {
+          background: transparent;
+          transition: all .2s ease-in-out;
+          color: @color-orange;
+        }
+
+        li a {
+          display: block;
+          color: black;
+          border-bottom: 1px solid #e6e8ea;
+          box-shadow: inset 0 1px 0 rgba(255,255,255,1);
+        }
+      }
+
+      &:after {
+        margin-left: 10%;
+        margin-top: -1px;
+        border-width: 4px 4px 0;
+        border-color: #5f6edc transparent;
+      }
+
+      &:hover {
+        transition: all .3s ease-in-out;
+        color: @color-orange;
+        &:after {
+          transition: all .2s ease-in-out;
+          border-color: @color-orange transparent;
+        }
+      }
+      &:active, &:focus {
+        transition: all .2s ease;
+        color: #dc8d25;
+        &:after {
+          transition: all .2s ease;
+          border-color: #dc8d25 transparent;
+        }
+      }
+    }
+  }
+
+  .cards-content {
+    margin-top: 1em;
+  }
+
+  .modal {
+    .modal-dialog {
+      width: 100%;
+      margin: 0;
+      top: 50vh;
+      transform: translateY(-50%);
+      @media (min-width: 768px) {
+        width: 65%;
+        margin: auto;
+        transform: translateY(-40vh);
+      }
+
+    }
+
+    .modal-content {
+      border: none;
+      border-radius: 0;
+
+      //transform: translateY(-35vh);
+
+
+      box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+
+      .detail-modal {
+        padding: 0em 1em;
+        transition: all .3s ease;
+        font-family: "LatoWeb", Helvetica, Arial, sans-serif;
+
+        .modal-img {
+          img {
+            width: 100%;
+            //height: 100vh;
+            object-fit: cover;
+            object-position: top center;
+
+          }
+        }
+
+        .link-btn {
+          text-align: right;
+          right: .8em;
+          position: absolute;
+        }
+
+        .copyright{
+          margin: 1.5em 0;
+        }
+
+        span {
+          color: darkgray;
+          text-transform: uppercase;
+          font-size: .75em;
+
+          display: inline-block;
+          p {
+            margin-left: .5em;
+            color: initial;
+            font-size: initial;
+            text-transform: initial;
+            display: inherit;
+          }
+        }
+
+        .con10t {
+          padding: 2em .8em;
+          @media (min-width: 768px) {
+            padding: 2em 1.5em;
+          }
+        }
+        .piece-title {
+          font-size: 24px;
+          letter-spacing: 0;
+          line-height: 1.2;
+        }
+        .piece-format {
+          font-style: italic;
+          font-size: 16px;
+          letter-spacing: 0;
+          margin: .5em 0;
+        }
+        .piece-footer {
+          margin-top: 5%;
+
+          @media (min-width: 768px) {
+            margin-top: 15%;
+          }
+
+          .price {
+            color: @color-orange;
+            font-family: "LatoWebBold", Helvetica, Arial, sans-serif;
+            font-size: 24px;
+            margin-bottom: 0;
+
+            @media (min-width: 768px) {
+              font-size: 30px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
