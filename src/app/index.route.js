@@ -11,20 +11,30 @@ export function routerConfig ($routeProvider, $locationProvider) {
       controller: 'HomeController',
       controllerAs: 'vm'
     })
-    .when('/catalog.html', {
-      templateUrl: 'app/views/catalog/catalog.html',
-      controller: 'CtgController',
-      controllerAs: 'ctgvm'
+    .when('/catalog', {
+      templateUrl: 'app/views/home/home.html',
+      controller: 'HomeController',
+      controllerAs: 'vm'
     })
-    .when('/news.html', {
-      templateUrl: 'app/views/news/news.html',
-      controller: 'NewsController',
-      controllerAs: 'newsvm'
+    .when('/records', {
+      templateUrl: 'app/views/home/home.html',
+      controller: 'HomeController',
+      controllerAs: 'vm'
     })
-    .when('/contacts.html', {
-      templateUrl: 'app/views/contacts/contacts.html',
-      controller: 'ContactsController',
-      controllerAs: 'ctcsvm'
+    .when('/news', {
+      templateUrl: 'app/views/home/home.html',
+      controller: 'HomeController',
+      controllerAs: 'vm'
+    })
+    .when('/contacts', {
+      templateUrl: 'app/views/home/home.html',
+      controller: 'HomeController',
+      controllerAs: 'vm'
+    })
+    .when('/about', {
+      templateUrl: 'app/views/home/home.html',
+      controller: 'HomeController',
+      controllerAs: 'vm'
     })
     .when('/buy/:id/:token', {
       templateUrl: 'app/views/buy/buy.html',

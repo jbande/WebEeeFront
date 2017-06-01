@@ -1,41 +1,290 @@
 <div id="cartSummary" ng-controller="CartController as cartCtrl">
-  total de elementos:
-  {{cartCtrl.getItemCount()}} work(s) selected,
-  {{cartCtrl.getTotal() | currency}}
-  <div class="row">
-    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-      <card
-        ng-repeat="card in cartCtrl.cardsToShow()"
-        data-id="{{ card.id }}"
-        data-img="{{ card.img }}"
-        data-title="{{ card.title }}"
-        data-format="{{ card.format }}"
-        data-collection="{{ card.collection }}"
-        data-crautor="{{ card.crautor }}"
-        data-credit="{{ card.credit }}"
-        data-de="{{ card.de }}"
-        data-cm="{{ card.cm }}"
-        data-rm="{{ card.rm }}"
-        data-dg="{{ card.dg }}"
-        data-pe="{{ card.pe }}"
-        data-price="{{ card.price }}"
-      />
+  <div class="container">
+    <div class="row">
+      <!--BTN ATRÁS-->
+      <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12">
+        <a class="link-btn" href="/home"><i class="eee i-back"></i>{{cartCtrl.back_btn}}</a>
+      </div>
+      <!--TABLA-->
+      <div class="col-lg-11 col-md-11 col-sm-11 col-xs-12">
+        <div ng-repeat="item in cartCtrl.items">
+          <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 fila">
+              <!--TITLE-->
+              <h3>{{cartCtrl.table_labels[0].label}}</h3>
+              <div class="card-info">
+                <p class="piece-title">{{item.title}}</p>
+                <p class="piece-format">{{item.format}}</p>
+                <p class="piece-format">{{item.collection}}</p>
+              </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 fila">
+              <!--COPIES-->
+              <h3>{{cartCtrl.table_labels[1].label}}</h3>
+              <div class="list-checkbox fila">
+                <input
+                  ng-model="item.inDigital"
+                  ng-checked="item.inDigital"
+                  ng-click="cartCtrl.calculateSummary()"
+                  type="checkbox"
+                  class="input-checkbox">
+                <span class="lbl-checkbox pull-left"><i class="eee"></i></span>
+                {{cartCtrl.input_labels[0].label}}
+              </div>
+              <div class="list-checkbox fila">
+                <input
+                  ng-model="item.inFisico"
+                  ng-checked="item.inFisico"
+                  ng-click="cartCtrl.calculateSummary()"
+                  type="checkbox"
+                  class="input-checkbox">
+                <span class="lbl-checkbox pull-left"><i class="eee"></i></span>
+                {{cartCtrl.input_labels[1].label}}
+              </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 fila">
+              <!--AMOUNT-->
+              <h3>{{cartCtrl.table_labels[2].label}}</h3>
+
+              <input ng-disabled="!item.inDigital"
+                     ng-model="item.digitalCount"
+                     type="number"
+                     value="1"
+                     class="form-control"
+                     readonly>
+
+              <div ng-disabled="!item.inFisico" class="input-group spinner">
+                <!--BTN DOWN-->
+              <span class="input-group-btn">
+               <button ng-disabled="!item.inFisico"
+                       ng-click="cartCtrl.spinnerClick(item,'down')"
+                       class="link-btn"
+                       type="button">
+                 <i class="eee i-down"></i>
+               </button>
+             </span>
+
+                <!--INPUT-->
+                <input ng-disabled="!item.inFisico"
+                       ng-model="item.fisicoCount"
+                       type="number"
+                       class="form-control"
+                       placeholder="1"
+                       readonly>
+
+                <!--BTN UP-->
+             <span class="input-group-btn">
+               <button ng-disabled="!item.inFisico"
+                       ng-click="cartCtrl.spinnerClick(item, 'up')"
+                       class="link-btn"
+                       type="button">
+                 <i class="eee i-up"></i>
+               </button>
+             </span>
+              </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-7 fila">
+              <!--PRICE-->
+              <h3>{{cartCtrl.table_labels[3].label}}</h3>
+              <p class="price-item">{{item.price | currency : "€"}}</p>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4 fila">
+              <!--SUBTOTAL-->
+              <h3>{{cartCtrl.table_labels[4].label}}</h3>
+              <p class="price-item">{{item.price*((item.inDigital ? item.digitalCount : 0)+(item.inFisico ? item.fisicoCount : 0))  | currency : "€"}}</p>
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-12 fila">
+              <!--REMOVE-->
+              <button ng-click="cartCtrl.removeItem(item)"
+                      class="link-btn btn-remove">
+                <i class="eee i-trash"></i>
+                <span class="hidden-lg hidden-md">Remove this item</span>
+              </button>
+            </div>
+          </div>
+          <!--separator-->
+          <hr ng-if="cartCtrl.items.length > 1">
+        </div>
+      </div>
+    </div>
+
+    <div class="row" ng-show="cartCtrl.checkout">
+      <!--Formulario -->
+      <div class="col-lg-5 col-md-5 col-sm-offset-1 col-sm-6 col-xs-12">
+        <form name="shippingForm" class="fila" novalidate>
+          <h3>{{cartCtrl.checkout_label}}</h3>
+          <p>{{cartCtrl.checkout_msg}}</p>
+
+          <div class="ctc-inputs">
+            <input name="name"
+                   type="text"
+                   ng-model="cartCtrl.user_id"
+                   placeholder="{{cartCtrl.placeholder.name}}">
+          </div>
+
+          <div class="ctc-inputs">
+            <input name="email"
+                   type="email"
+                   ng-model="cartCtrl.user_mail"
+                   placeholder="{{cartCtrl.placeholder.mail}}"
+                   required>
+          </div>
+          <p class="input-error" ng-show="shippingForm.email.$error.required">{{cartCtrl.errorMsg[1].errorMsg}}</p>
+
+          <div ng-if="cartCtrl.summary_items[2].total>0" class="ctc-inputs">
+            <input name="message"
+                   type="text"
+                   ng-model="cartCtrl.user_address"
+                   placeholder="{{cartCtrl.placeholder.msg}}"
+                   required>
+          </div>
+          <p class="input-error" ng-show="shippingForm.message.$error.required">{{cartCtrl.errorMsg[0].errorMsg}}</p>
+        </form>
+      </div>
+      <!--CART SUMMARY-->
+      <div class="col-lg-3 col-lg-offset-2 col-md-3 col-sm-3 col-sm-offset-1 col-xs-12">
+        <div class="fila">
+          <h3 class="fila">{{cartCtrl.summary_label}}</h3>
+
+          <!--items-->
+          <div class="row">
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+              <p>{{cartCtrl.summary_items[0].label}}</p>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
+              <p>{{cartCtrl.summary_items[0].total}}</p>
+            </div>
+          </div>
+
+          <!--digital copies-->
+          <div class="row">
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+              <p>{{cartCtrl.summary_items[1].label}}</p>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
+              <p>{{cartCtrl.summary_items[1].total}}</p>
+            </div>
+          </div>
+
+          <!--physical copies-->
+          <div class="row">
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+              <p>{{cartCtrl.summary_items[2].label}}</p>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
+              <p>{{cartCtrl.summary_items[2].total}}</p>
+            </div>
+          </div>
+
+          <!--Items to pay-->
+          <div class="row">
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+              <p>{{cartCtrl.summary_items[3].label}}</p>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
+              <p>{{cartCtrl.summary_items[3].total}}</p>
+            </div>
+          </div>
+
+          <hr>
+
+          <!--Digital copies price-->
+          <div class="row">
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+              <p>{{cartCtrl.summary_items[4].label}}</p>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
+              <p>{{cartCtrl.summary_items[4].total | currency : "€"}}</p>
+            </div>
+          </div>
+
+          <!--Physical copies price-->
+          <div class="row">
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+              <p>{{cartCtrl.summary_items[5].label}}</p>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
+              <p>{{cartCtrl.summary_items[5].total | currency : "€"}}</p>
+            </div>
+          </div>
+
+          <!--Shipping-->
+          <div ng-if="cartCtrl.summary_items[2].total>0" class="row">
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+              <p>{{cartCtrl.summary_items[6].label}}</p>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
+              <p>{{cartCtrl.summary_items[6].total | currency : "€"}}</p>
+            </div>
+          </div>
+
+          <!--Subtotal-->
+          <div class="row">
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+              <p>{{cartCtrl.summary_items[7].label}}</p>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
+              <p>{{cartCtrl.summary_items[7].total | currency : "€"}}</p>
+            </div>
+          </div>
+
+          <!--Taxes-->
+          <div class="row">
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+              <p>{{cartCtrl.summary_items[8].label}}</p>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
+              <p>{{cartCtrl.summary_items[8].total | currency : "€"}}</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!--Botones de TOTAL y CHECKOUT-->
+    <div class="fila">
+      <div class="row">
+        <div class="col-lg-11 col-md-11 col-sm-4 col-sm-offset-1 col-xs-12">
+          <!--<hr>-->
+          <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-5">
+              <button type="button" class="fill-btn" ng-click="cartCtrl.checkoutClick()">{{cartCtrl.checkout_btn}}</button>
+            </div>
+            <div class="col-lg-5 col-md-4 col-md-offset-3 col-sm-6 col-xs-7 text-right price">
+              <h3>{{cartCtrl.summary_items[9].label}}</h3>
+              <p><b>{{cartCtrl.total | currency : "€"}}</b></p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
-  <form name="shippingForm" novalidate>
-    <div ng-show="cartCtrl.checkout">
-      <p>{{cartCtrl.checkout_msg}}</p>
-      <div class="form-group">
-        <label>Mail</label>
-        <input
-          ng-model="cartCtrl.mailCheckout"
-          type="email"
-          placeholder="{{cartCtrl.mail_placeholder}}"
-          required>
+  <div id="error_modal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="detail-modal">
+          <!--<button class="link-btn" ng-click=""><i class="eee i-close"></i></button>-->
+          <div class="con10t">
+            {{cartCtrl.msg_post_send}}
+            <div class="row">
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right">
+                <!--botón reintentar-->
+                <button ng-show="!cartCtrl.checkout_end"
+                        ng-click="cartCtrl.closeModal()"
+                        class="link-btn">{{cartCtrl.modal_btns[0].label}}</button>
+                <!--botón Continue shopping-->
+                <a ng-show="cartCtrl.checkout_end"
+                   href="/home"
+                   ng-click="cartCtrl.closeModal()"
+                   class="link-btn">{{cartCtrl.modal_btns[1].label}}</a>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </form>
-  <a href="/home.html">{{cartCtrl.back_btn}}</a>
-  <button ng-click="cartCtrl.checkoutClick()">{{cartCtrl.checkout_btn}}</button>
+  </div>
+
 </div>

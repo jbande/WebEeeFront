@@ -11,11 +11,8 @@ export class MainController {
     this.activate($timeout, webDevTec);
     this.init();
   }
-
-  init () {
-    // comenzar la música automáticamente
-    angular.element("#playMusic").click();
-    angular.element("#playMusic").css('display', 'none');
+  init() {
+    angular.element("html, body").scrollTop(0,0);
   }
 
   activate($timeout, webDevTec) {

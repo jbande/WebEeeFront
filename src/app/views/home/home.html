@@ -1,15 +1,22 @@
-<div ng-if="vm.error_trigger" id="global-error">
-  <div id="info" class="text-center">
+<div ng-hide="!vm.loading" id="loading" class="global-error">
+  <div class="text-center info">
+    <h3>Cargando...</h3>
+  </div>
+</div>
+
+<div ng-if="vm.error_trigger" class="global-error">
+  <div class="text-center info">
     <h3>{{vm.error_global_msg}}</h3>
     <a href="/home.html">{{vm.error_global_btn}}</a>
   </div>
 </div>
 
+
 <div ng-if="!vm.error_trigger" id="homeView">
-  <navbar />
+  <navbar></navbar>
 
   <div ng-if="!vm.slidesUp" ng-class="{'animateUp': vm.slidesUp}" id="start">
-    <div class="animateUp socials over-all">
+    <div class="socials over-all">
       <div class="container">
         <span>Follow us
           <a href="{{vm.url_facebook}}" target="_blank"><i class="icons eee i-Facebook"></i></a>
@@ -29,7 +36,7 @@
         <img ng-src="{{slide.image}}" alt="{{slide.autor}}">
       </div>
       <!--<img ng-repeat="slide in vm.slides" ng-src="{{slide.image}}" alt="{{slide.autor}}">-->
-        <!--<p id="frases" class="container" ng-repeat="slide in vm.slides">{{slide.frase}}</p>-->
+      <!--<p id="frases" class="container" ng-repeat="slide in vm.slides">{{slide.frase}}</p>-->
     </simple-slider>
   </div>
 
@@ -39,5 +46,5 @@
     </div>
   </div>
 
-  <efooter />
+  <efooter></efooter>
 </div>

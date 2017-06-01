@@ -6,6 +6,7 @@ import { runBlock } from './index.run';
 import { MainController } from './main/main.controller';
 import { HomeController } from './views/home/home.controller.js';
 import { CtgController } from './views/catalog/catalog.controller.js';
+import { RecordsController } from './views/records/records.controller.js';
 import { NewsController } from './views/news/news.controller.js';
 import { CartController } from './views/cart/cart.controller.js';
 import { ContactsController } from './views/contacts/contacts.controller.js';
@@ -13,9 +14,10 @@ import { BuyController } from './views/buy/buy.controller.js';
 import { GithubContributorService } from '../app/components/githubContributor/githubContributor.service';
 import { WebDevTecService } from '../app/components/webDevTec/webDevTec.service';
 import { HomeService } from '../app/views/home/home.service';
-import { NewsService } from '../app/components/services/news.service';
+// import { NewsService } from '../app/components/services/news.service';
 import { CartService } from '../app/components/services/cart.service';
 import { CutText } from '../app/components/filtros/CutText/cuttext.filter';
+import { filterTracks } from '../app/components/filtros/filterTracks.filter';
 import { cardsToLoadFilter } from '../app/components/filtros/cardsToLoad.filter';
 import { NavbarDirective } from '../app/components/navbar/navbar.directive';
 import { CardDirective } from '../app/components/card/card.directive';
@@ -35,12 +37,14 @@ angular.module('webEee', ['ngAnimate', 'ngDropdowns', 'angularSoundManager', 'di
   .service('webDevTec', WebDevTecService)
   .service('homeService', HomeService)
   .service('cartService', CartService)
-  .service('newsService', NewsService)
+  // .service('newsService', NewsService)
   .filter('CutText', CutText)
+  .filter('filterTracks', filterTracks)
   .filter('cardsToLoadFilter', cardsToLoadFilter)
   .controller('MainController', MainController)
   .controller('HomeController', HomeController)
   .controller('CtgController', CtgController)
+  .controller('RecordsController', RecordsController)
   .controller('NewsController', NewsController)
   .controller('CartController', CartController)
   .controller('ContactsController', ContactsController)

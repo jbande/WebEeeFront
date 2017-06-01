@@ -1,7 +1,12 @@
 <nav ng-class="{'animate': $parent.vm.slidesUp}" class="navbar navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
-      <button ng-if="$parent.vm.slidesUp" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu-navbar-collapse" aria-expanded="false">
+      <button ng-if="$parent.vm.slidesUp"
+              type="button"
+              class="navbar-toggle collapsed"
+              data-toggle="collapse"
+              data-target="#menu-navbar-collapse"
+              aria-expanded="false">
         <span class="sr-only">Toggle navigation</span>
         <span class="eee i-overflow"></span>
       </button>
@@ -13,11 +18,12 @@
     <div class="collapse navbar-collapse" id="menu-navbar-collapse">
       <ul class="nav navbar-nav">
         <li class="nav-menus"
+            ng-class="{'searchActive': nvm.isSearchActive}"
             ng-repeat="navmenu in nvm.menus.menu"
             ng-init="subm=nvm.getSubMenu(navmenu.id)">
           <a href=""
              ng-if="navmenu.sub"
-             ng-class="{'activeMenu': navmenu.active == true}"
+             ng-class="{'activeMenu': navmenu.active}"
              dropdown-onchange="nvm.subMenuClick(selected)"
              dropdown-menu="subm"
              dropdown-model="ddMenuSelected"
@@ -27,21 +33,36 @@
           <a href=""
              ng-if="!navmenu.sub"
              ng-click="nvm.navMenuClick(navmenu)"
-             ng-class="{'activeMenu': navmenu.active == true}">
+             ng-class="{'activeMenu': navmenu.active}">
             {{navmenu.title}}
           </a>
         </li>
-        <li class="derecha-cojone">
-          <a class="nav-btns" ng-click="nvm.cartSummaryClick()">
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li class="text-center">
+          <a class="nav-btns" href="" ng-click="nvm.cartSummaryClick()">
             <span class="eee i-cart"></span>
             <span class="badge">{{$parent.vm.cartCount}}</span>
           </a>
-          <a id="find" class="input-group nav-btns">
-            <span class="input-group-addon"><i class="eee i-search"></i></span>
-            <input type="text" ng-model="find_term" ng-show="nvm.isSearchActive==true" class="form-control" placeholder="Buscar..." aria-describedby="find">
-          </a>
         </li>
+        <li class="text-center">
+          <!--cart summary y buscador-->
+          <div class="nav-btns">
+            <button ng-click="nvm.findClick()" type="button"><i class="eee i-search"></i></button>
+            <div id="find">
+              <input ng-class="{'animarFind': nvm.isSearchActive}"
+                     ng-show="nvm.isSearchActive"
+                     ng-model="nvm.findTerm"
+                     id="find_input"
+                     type="text" placeholder="Search for...">
+            </div>
+          </div>
+          <!---->
+        </li>
+
       </ul>
+
     </div>
 
   </div>

@@ -2,8 +2,29 @@
 
 <div class="container">
   <div class="main-content">
-    <div>
-      {{buyvm.loading_msg}}
+    <div class="text-center vert-center">
+      <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            {{buyvm.loading_msg}}
+
+           <!-- <form action="/your-server-side-code" method="POST">
+              <script
+                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                data-key="pk_test_6pRNASCoBOKtIshFeQd4XMUh"
+                data-amount="889898"
+                data-name="Stripe.com"
+                data-description="Widget"
+                data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                data-locale="auto"
+                data-zip-code="true">
+              </script>
+            </form>-->
+
+          </div>
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <a href="/home" ng-show="buyvm.server_response">{{buyvm.load_button}}</a>
+          </div>
+      </div>
     </div>
   </div>
 </div>

@@ -1,7 +1,7 @@
 {
   "name": "webEee",
   "version": "0.0.0",
-  "description": "Ediciones ESpiral Eterna",
+  "description": "Ediciones Espiral Eterna",
   "dependencies": {},
   "scripts": {
     "test": "gulp test",

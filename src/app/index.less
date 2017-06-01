@@ -11,12 +11,23 @@
  */
 
 @color-orange: #F9A227;
+@grid-float-breakpoint: 992px;
 @import "../assets/latofonts.css";
 @import "../assets/icons.css";
 
+//TODO  Actualizar cantidad de items que tiene la colección al cargar la primera
+//TODO  En NEWS al dar click en MORE INFO abrir nuevo tab con la url
+//TODO  Play a la música automáticamente
+//TODO  Dropdown ponga el primer item automáticamente
+//TODO  Checkear los inputs
+//TODO  Implementar la búsqueda
+//TODO  Estilo al correo q se envía al usuario
+//TODO  Estilo al backend
+//TODO  Resetear todas las variables al dar click en Continue Shopping
+
 
 html, body {
-  font-family:"LatoWeb", Helvetica, Arial, sans-serif ;
+  font-family: "LatoWeb", Helvetica, Arial, sans-serif;
   font-size: 16px;
   letter-spacing: .05em;
 }
@@ -24,6 +35,10 @@ html, body {
 body {
   //overflow-x: hidden;
   overflow-y: hidden;
+}
+
+a {
+  text-decoration: none !important;
 }
 
 .browsehappy {
@@ -41,14 +56,17 @@ body {
   }
 }
 
-#global-error {
+.global-error {
   width: 100vw;
   height: 100vh;
-  background-color: rgba(249,162, 52, .6);
+  background-color: rgba(249, 198, 132, 1);
+  position: absolute;
+  z-index: 99999;
 
-  #info {
-    margin-top: 50vh;
-    transform: translateY(-80%);
+  .info {
+    margin-top: 40vh;
+    margin-left: 50vw;
+    transform: translate(-50%);
     position: absolute;
   }
 }
@@ -58,6 +76,17 @@ h3 {
   font-size: 16px;
   text-transform: uppercase;
   margin-top: 0;
+}
+h1 {
+  font-family: "LatoWebRegular", Helvetica, Arial, sans-serif;
+  font-size: 24px;
+  text-transform: none;
+  margin-top: 0;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
 }
 
 .fill-btn {
@@ -71,6 +100,7 @@ h3 {
   text-transform: uppercase;
   width: 100%;
   //line-height: 2.6;
+  text-decoration: none;
   padding: 1em;
 
   &:hover {
@@ -107,6 +137,27 @@ h3 {
   }
 }
 
+.vert-center {
+  top: 40%;
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+
+.price {
+  font-family: "LatoWebRegular", Helvetica, Arial, sans-serif;
+  font-size: 26px;
+  color: @color-orange;
+  margin-bottom: 0;
+}
+
+.fila {
+  margin: 1em 0 .5em;
+  @media (min-width: 992px) {
+    //margin: 0;
+  }
+}
+
 .link-btn {
   outline: none;
   transition: all .2s ease;
@@ -129,12 +180,76 @@ h3 {
     color: #dc8d25;
   }
 }
+.link-btn[disabled]{
+  border-color: black;
+}
 
 .input-error {
   color: #5e001f;
   font-size: .9em;
   margin: 0;
 }
+
+button[disabled] {
+  cursor: not-allowed;
+  color: #cacaca;
+
+  &:hover {
+    color: #cacaca;
+  }
+}
+
+button.fill-btn[disabled] {
+  background-color: #e5e5e5;
+}
+
+.checkbox {
+  display: inline-flex;
+  color: @color-orange;
+  font-size: .8rem;
+
+  .inputs-check {
+    //display: none;
+    opacity: 0;
+    cursor: pointer;
+    //position: absolute;
+    z-index: 5;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .check-box{
+    width: 2em;
+    height: 1.8em;
+    margin-right: 1em;
+    background-color: transparent;
+    border: 2px solid @color-orange;
+    padding: 0;
+
+    @media (min-width: 992px) {
+      width: 3.1em;
+      height: 1.9em;
+    }
+  }
+
+  &:hover {
+    transition: all .2s ease;
+    color: black;
+    .check-box {
+      transition: all .2s ease;
+      color: black;
+      border-color: black;
+    };
+  }
+
+  @media (min-width: 768px) {
+    font-size: 1rem;
+  }
+
+}
+
 
 input[type="text"], input[type="email"] {
   border: none;
@@ -144,8 +259,7 @@ input[type="text"], input[type="email"] {
   transition: all .2s ease;
   font-size: 16px;
 
-
-  &:active,&:focus {
+  &:active, &:focus {
     outline: none;
     transition: all .2s ease;
     border-bottom: 2px solid @color-orange;
@@ -153,15 +267,11 @@ input[type="text"], input[type="email"] {
   }
 }
 
-
-@media (min-width: 1200px){
+@media (min-width: 1200px) {
   .container {
     width: 1220px;
   }
 }
-
-
-
 
 /**
  *  Do not remove the comments below. It's the markers used by gulp-inject to inject

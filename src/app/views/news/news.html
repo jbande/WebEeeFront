@@ -1,18 +1,10 @@
-<navbar />
-
-<div class="container">
-  <div class="main-content">
-    <div id="newsView" class="row" ng-controller="NewsController as nc">
-      <vcard
-        ng-repeat="vcard in nc.vcards"
-        data-id="{{ vcard.id }}"
-        data-img="{{ vcard.img }}"
-        data-title="{{ vcard.title }}"
-        data-date="{{ vcard.date }}"
-        data-description="{{ vcard.desc }}"
-      ></vcard>
-    </div>
-  </div>
+<div id="newsView" class="row" ng-controller="NewsController as nc">
+  <vcard
+    ng-repeat="vcard in nc.vcards"
+    data-id="{{ vcard.id }}"
+    data-img="{{ vcard.img }}"
+    data-title="{{ vcard.title }}"
+    data-date="{{ vcard.date }}"
+    data-description="{{ vcard.desc }}"
+  ></vcard>
 </div>
-
-<efooter />

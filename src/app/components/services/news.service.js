@@ -9,10 +9,10 @@ export class NewsService {
   }
 
   getNewsCards () {
-    return this.http.get('http://192.168.0.100:3245/api/news/en').then((response)=> {
+    return this.http.get('http://192.168.0.101:3245/api/news/en').then((response)=> {
       let toReturn = {};
       toReturn.status = response.status;
-      if(toReturn.status = 200){
+      if(toReturn.status == 200){
         toReturn.success = true;
         toReturn.data = response.data;
       } else {
@@ -28,6 +28,6 @@ export class NewsService {
       return toReturn;
     });
   }
-  
+
 }
 

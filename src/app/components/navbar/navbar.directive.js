@@ -29,42 +29,43 @@ class NavbarController {
     this.loc            = $location;
     this.homeSvc        = homeService;
     this.cartSvc        = cartService;
+    this.widget_count   = this.cartSvc.cartData.length;
 
     this.navPosOk       = this.homeSvc.getSlidesState();
     this.isSearchActive = false;
 
-    //TODO recibir el menú superior desde el server
     this.menus = {
       menu: [{
         id:0,
         active: true,
         sub: true,
-        title: 'Catalogue',
-        url:'/catalog.html'
+        title: 'Catalogue'
       },{
         id:1,
         active: false,
         sub:true,
-        title: 'Records',
-        url:'/records.html'
+        title: 'Records'
       },{
         id:2,
         active: false,
         sub: false,
         title: 'News',
-        url:'/news.html'
+        fake_url:'/news',
+        url:'app/views/news/news.html'
       },{
         id:3,
         active: false,
         sub: false,
         title: 'Contact',
-        url:'/contacts.html'
+        fake_url:'/contacts',
+        url:'app/views/contacts/contacts.html'
       },{
         id:4,
         active: false,
         sub: false,
         title: 'About',
-        url:'/about.html'
+        fake_url:'/about',
+        url:'app/views/about/about.html'
       }],
       submenu:  [{
         parentId:0,
@@ -72,6 +73,7 @@ class NavbarController {
         active:true,
         label: 'Catalogue',
         title: 'Ediciones Espiral Eterna',
+        fake_url:'/catalog',
         url:'app/views/catalog/catalog.html'
       }, {
         parentId:0,
@@ -79,6 +81,7 @@ class NavbarController {
         active:false,
         label: 'Catalogue',
         title: 'General',
+        fake_url:'/catalog',
         url:'app/views/catalog/catalog.html'
       }, {
         parentId:1,
@@ -86,14 +89,16 @@ class NavbarController {
         active:false,
         label: 'Records',
         title: 'Ediciones Espiral Eterna',
-        url:'app/views/catalog/catalog.html'
+        fake_url:'/records',
+        url:'app/views/records/records.html'
       }, {
         parentId:1,
         id:3,
         active:false,
         label: 'Records',
         title: 'General',
-        url:'app/views/catalog/catalog.html'
+        fake_url:'/records',
+        url:'app/views/records/records.html'
       }
       ]};
 
@@ -101,40 +106,13 @@ class NavbarController {
   }
 
   init() {
-    if(window.innerWidth > "1366px"){
-      angular.element('#find input').focus(()=>{
-        angular.element( ".nav-menus" ).css('margin-right', "0em");
-        this.isSearchActive = true;
-      });
-
-      angular.element('#find input').focusout(()=>{
-        angular.element( ".nav-menus" ).css('margin-right', "3em");
-        this.isSearchActive = false;
-      });
-
-      angular.element( "#find" ).hover(
-        () => {
-          angular.element( ".nav-menus" ).css('margin-right', "0em");
-        },
-        () => {
-          if(!this.isSearchActive){
-            angular.element( ".nav-menus" ).css('margin-right', "3em");
-          }
-        }
-      );
-    } else {
-      this.isSearchActive = true;
-    }
-
-    /*if(!this.navPosOk){
-      // angular.element('nav.navbar').addClass('animate');
-      this.navPosOk = true;
-    }*/
+    this.widget_count = this.cartSvc.cartData.length;
+    this.updateMenuActive();
   }
 
 
   getSubMenu(_parent_id) {
-    var result = [];
+    let result = [];
     for (var i = 0; i < this.menus.submenu.length; i++) {
       if(this.menus.submenu[i].parentId == _parent_id){
         result.push(this.menus.submenu[i]);
@@ -144,31 +122,26 @@ class NavbarController {
 
   }
 
-  navMenuClick(obj) {
+  updateMenuActive() {
+    // los desactiva todos
     for (var i = 0; i < this.menus.menu.length; i++) {
       this.menus.menu[i].active = false;
-      if(this.menus.menu[i].id == obj.id){
-        this.menus.menu[i].active = true;
-      }
     }
-    // cerrar submenu responsive
-    angular.element('.navbar-toggle').click();
+    //activa al que se le dio click
+    this.menus.menu[this.homeSvc.getCurrentMenu()].active = true;
+  }
 
+  navMenuClick(obj) {
     // carga la página
-    console.log(obj.url);
-    this.loc.path(obj.url);
-    // this.scope.$parent.vm.menuSelectedUrl = obj.url;
+    this.homeSvc.current_nav_menu = obj.id;
+    this.homeSvc.current_nav_url = obj.url;
+    this.loc.path(obj.fake_url);
 
+    // cerrar submenu cuando se está en responsive
+    this.cerrarMenuResponsive();
   }
 
   subMenuClick(_where) {
-    for (var i = 0; i < this.menus.submenu.length; i++) {
-      this.menus.submenu[i].active = false;
-      if(this.menus.submenu[i].id == _where.id){
-        this.menus.submenu[i].active = true;
-      }
-    }
-
     //------------ actualizar la info que se muestra
     this.actualizarInfo(_where);
 
@@ -179,50 +152,74 @@ class NavbarController {
     // activa el menu padre del submenu
     this.menus.menu[_where.parentId].active = true;
 
-    this.scope.$parent.vm.menuSelectedUrl = 'app/views/catalog/catalog.html';
-
     // cerrar submenu cuando se está en responsive
-    if(window.innerWidth < 768){
-      angular.element('.navbar-toggle').click();
-    }
+    this.cerrarMenuResponsive();
   }
   actualizarInfo(__menu) {
-    this.scope.$parent.vm.menuTitle = __menu.title;
+    // this.scope.$parent.vm.menuTitle = __menu.title;
     // primero ve sobre quién se da click y le dice la variable a cargar en consecuencia
     switch (__menu.id) {
       case 0:
         this.homeSvc.actual_menu = this.homeSvc.api_url_eee_menu;
         this.homeSvc.actual_cards = this.homeSvc.api_url_eee_cards;
-        this.scope.$parent.vm.actual_menu = 0;
+        this.homeSvc.load_card_type = 0;
+        this.scope.$parent.$parent.vm.actual_menu = 0; //para pedir el tipo de card
+        this.scope.$parent.vm.setCards();
         break;
       case 1:
         this.homeSvc.actual_menu = this.homeSvc.api_url_gen_menu;
         this.homeSvc.actual_cards = this.homeSvc.api_url_gen_cards;
-        this.scope.$parent.vm.actual_menu = 1;
+        this.homeSvc.load_card_type = 1;
+        this.scope.$parent.$parent.vm.actual_menu = 1; //para pedir el tipo de card
+        this.scope.$parent.vm.setCards();
         break;
       case 2:
         this.homeSvc.actual_menu = this.homeSvc.api_url_reee_menu;
-        this.homeSvc.actual_cards = this.homeSvc.api_url_reee_cards;
-        this.scope.$parent.vm.actual_menu = 0;
+        // this.homeSvc.actual_cards = this.homeSvc.api_url_reee_cards;
+        // this.homeSvc.load_card_type = 0;
+        // this.scope.$parent.$parent.vm.cards_in_category = 1;
+        this.scope.$parent.vm.getRecords();
         break;
       case 3:
         this.homeSvc.actual_menu = this.homeSvc.api_url_rgen_menu;
-        this.homeSvc.actual_cards = this.homeSvc.api_url_rgen_cards;
-        this.scope.$parent.vm.actual_menu = 1;
+        // this.homeSvc.actual_cards = this.homeSvc.api_url_rgen_cards;
+        // this.scope.$parent.$parent.vm.cards_in_category = 2;
+        this.scope.$parent.$parent.vm.getRecords();
         break;
     }
     // actualiza la página
+    this.homeSvc.current_nav_menu = __menu.parentId;
+    this.homeSvc.current_nav_url  = __menu.url;
+    this.loc.path(__menu.fake_url);
+
     this.scope.$parent.vm.setMenu();
-    this.scope.$parent.vm.setCards();
+
+  }
+
+  quitarActiveSearch() {
+    this.cerrarMenuResponsive();
+    this.isSearchActive = false;
   }
 
   cartSummaryClick() {
-    // TODO  Crear un modal diciendo que aún no se han agregado items al cart.
-    if(this.cartSvc.getItems().length > 0){
-      this.scope.$parent.vm.menuSelectedUrl = 'app/views/cart/cartSummary.html'
+    // TODO Crear un modal diciendo que aún no se han agregado items al cart.
+    let __items =  this.cartSvc.getItems();
+    if(__items.length > 0){
+      this.scope.$parent.vm.menuSelectedUrl = 'app/views/cart/cartSummary.html';
+      // this.homeSvc.setCurrentNav('app/views/cart/cartSummary.html');
     }
     // cerrar submenu cuando se está en responsive
-    if(window.innerWidth < 768){
+    this.cerrarMenuResponsive();
+  }
+
+  findClick() {
+    //TODO capturar el enter key
+    angular.element('#find #find_input').focus();
+    this.isSearchActive = !this.isSearchActive;
+  }
+
+  cerrarMenuResponsive() {
+    if(window.innerWidth < 992){
       angular.element('.navbar-toggle').click();
     }
   }

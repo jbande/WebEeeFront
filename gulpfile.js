@@ -7,16 +7,18 @@
 'use strict';
 
 var fs = require('fs');
-var gulp = require('gulp'),
+var gulp = require('gulp');/*,
   consolidate = require('gulp-consolidate'),
-  iconfont = require('gulp-iconfont');
+  iconfont = require('gulp-iconfont');*/
 
-var webfont = require('gulp-webfont');
+// var webfont = require('gulp-webfont');
 
+/*
 var webfont_config = {
   types:'eot,woff2,woff,ttf,svg',
   ligatures: true
 };
+*/
 
 /**
  *  This will load all js or coffee files in the gulp directory
@@ -33,8 +35,8 @@ fs.readdirSync('./gulp').filter(function(file) {
  *  Default task clean temporaries directories and launch the
  *  main optimization build task
  */
-gulp.task('iconfont', function () {
-  return gulp.src('../src/assets/images/*.svg')
+/*gulp.task('iconfont', function () {
+  return gulp.src('../src/assets/images/!*.svg')
     .pipe(iconfont({
       fontName: 'eeeiconfont',
       formats: ['ttf', 'eot', 'woff', 'woff2'],
@@ -61,15 +63,17 @@ gulp.task('iconfont', function () {
         .pipe(gulp.dest('iconfont'));
     })
     .pipe(gulp.dest('iconfont'));
-});
+});*/
 
+/*
 gulp.task('fonticos', function () {
- return gulp.src('../src/assets/images/*.svg')
+ return gulp.src('../src/assets/images/!*.svg')
  .pipe(webfont(webfont_config))
  .pipe(gulp.dest('dist'));
  });
+*/
 
-gulp.task('default', ['clean', 'fonticos', 'iconfont'], function () {
+gulp.task('default', ['clean'], function () {
   gulp.start('build');
 });
 

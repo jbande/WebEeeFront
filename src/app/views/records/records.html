@@ -1,0 +1,71 @@
+<div class="container">
+  <div class="row" ng-controller="RecordsController as rc">
+    <!--menu de la izquierda-->
+    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+      <div class="left-menu">
+        <h3>{{vm.menuTitle}}</h3>
+        <ul>
+          <li class="lm-item"
+              ng-repeat="menu in vm.menus"
+              ng-class="{'active': menu.active == true}"
+              ng-click="rc.loadInfo(menu)">
+            <button>{{menu.title}}</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!--contenido -->
+    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+
+      <!--real content-->
+      <div id="records" class="cards-content">
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <img ng-src="{{vm.records[rc.disc].img}}"
+                 class="cover-img"
+                 alt="Cover">
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div class="fila">
+              <h1>{{vm.records[rc.disc].title}}</h1>
+              <ul>
+                <li ng-repeat="track in vm.records[rc.disc].tracks"
+                    class="tracks-list">
+                  <div class="row">
+                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                      <div class="title-track">
+                        <button class="link-btn btn-demo"><i class="eee i-play"></i></button>
+                        {{track.title}}
+                      </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
+                      <div class="duration-track">{{track.duration | date: "mm ss"}}</div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+
+              <hr>
+
+              <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                  <p class="price">{{vm.records[rc.disc].price | currency: "€"}}</p>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                  <button class="fill-btn"
+                          type="button"
+                          ng-class="{'fill-btn': !rc.inCart, 'ghost-btn': rc.inCart}"
+                          ng-click="rc.addToCart(vm.records[rc.disc])">{{rc.btnTitle}}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div> <!-- contenido-->
+    </div>
+  </div>
+</div>
+

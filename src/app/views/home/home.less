@@ -53,7 +53,7 @@
       padding: 0 1em;
       position: absolute;
 
-      @media (min-width: 768px) {
+      @media (min-width: 992px) {
         text-align: right;
         right: 1.6em;
         top: 7.5em;
@@ -72,7 +72,6 @@
     padding: 2em 0 0;
     text-align: center;
 
-
     a {
       text-decoration: none;
       color: white;
@@ -82,9 +81,8 @@
       margin: 0 .3em;
     }
 
-
-    @media (min-width: 768px) {
-      //text-align: right;
+    @media (min-width: 992px) {
+      padding: 1em 0 0;
     }
   }
 
@@ -93,12 +91,20 @@
     transform: translateY(-100%);
   }
 
+  .grid-item, .grid-sizer {
+    width: 100%;
+    @media (min-width: 640px) {
+      width: 50%;
+    }
+  }
+
 }
 
 .main-content {
   padding-bottom: 3em;
   padding-top: 90px;
-  @media (min-width: 768px){
+  @media (min-width: 992px){
     padding-top: 9em;
+    padding-bottom: 7em;
   }
 }

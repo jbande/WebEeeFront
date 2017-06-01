@@ -5,17 +5,17 @@ export class CtgController {
   constructor ($scope, homeService) {
     'ngInject';
 
-    this.scope          = $scope;
-    this.homeSvc        = homeService;
-    this.menu_items     = [];
+    this.scope            = $scope;
+    this.homeSvc          = homeService;
+    this.menu_items       = [];
+    this.number_of_cards  = 0;
+    this.label_numCards   = ' items in this collection';
 
 
-    //TODO ver bien esto con Bande
     this.ddSelectOptions = [
-      {opt: 'Recently added', value: 'id'},
+      {opt: 'Recently added', value: 'created_at'},
       {opt: 'Title', value: 'title'},
-      {opt: 'Price', value: 'price'},
-      {opt: 'Popularity', value: 'popularity'}
+      {opt: 'Price', value: 'price'}
     ];
 
     this.ddSelectSelected = {};
@@ -24,8 +24,8 @@ export class CtgController {
   }
 
   init() {
+    // this.numberOfCards(0);
   }
-
 
   loadCards(menu) {
     this.menu_items = this.scope.$parent.$parent.vm.menus;
@@ -39,7 +39,21 @@ export class CtgController {
         this.scope.$parent.$parent.vm.cards_in_category = menu.id;
       }
     }
+    this.numberOfCards(menu.id);
+
   }
+
+  numberOfCards(__id) {
+    this.number_of_cards = 0;
+    let _cards = this.scope.$parent.$parent.vm.cards;
+    for (var i = 0; i < _cards.length; i++) {
+      if(__id == _cards[i].collection_id){
+        this.number_of_cards += 1;
+      }
+    }
+
+  }
+
 
 }
 

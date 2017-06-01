@@ -7,7 +7,7 @@ export function CardDirective() {
     link: fnLink,
     scope: {
       inCart: '=',
-      updateCard: '&'
+      updateCart: '&'
     },
     controller: CardController,
     controllerAs: 'cvm'
@@ -35,9 +35,10 @@ export function CardDirective() {
 }
 
 class CardController {
-  constructor ($scope, cartService) {
+  constructor ($scope, $rootScope, cartService) {
     'ngInject';
     this.scope = $scope;
+    this.rootScope = $rootScope;
     this.btnTitle = 'Add to cart';
     this.inCart = false;
     this.cartSvc = cartService;

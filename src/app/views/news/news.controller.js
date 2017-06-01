@@ -1,8 +1,8 @@
 export class NewsController {
-  constructor (newsService) {
+  constructor (homeService) {
     'ngInject';
 
-    this.newsService = newsService;
+    this.homeService = homeService;
     this.vcards = [];
     this.init();
   }
@@ -12,7 +12,7 @@ export class NewsController {
   }
 
   getNewsCards () {
-    this.newsService.getNewsCards().then((response)=> {
+    this.homeService.getNewsCards().then((response)=> {
       if (response.success) {
         this.vcards = response.data;
       }

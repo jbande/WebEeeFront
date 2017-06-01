@@ -2,11 +2,12 @@
  * Created by LEO'S on 12/04/2017.
  */
 export class ContactsController {
-  constructor ($scope, $http) {
+  constructor ($scope, $http, homeService) {
     'ngInject';
 
     this.scope = $scope;
     this.http = $http;
+    this.homeSvc = homeService;
     this.labelContacts = 'Send us your consult';
     this.labelSuscribe = 'Our news in your inbox';
     this.placeholder = {
@@ -49,7 +50,7 @@ export class ContactsController {
     this.suscribeBtn = 'Sending...';
 
     // envío de la info
-    this.http.post('http://192.168.0.100:3245/api/ticket/create', {
+    this.http.post(this.homeSvc.api_url_ticket, {
       ticket: {
         name: this.name,
         email: this.mail,
@@ -59,11 +60,11 @@ export class ContactsController {
     }, {
       withCredentials: true
     }).then ((data) => {
-      console.log('éxito: ', data);
+      // console.log('éxito: ', data);
     }, (error) => {
-      console.log('error:', error);
+      // console.log('error:', error);
     }).finally(function () {
-      console.log('completooooooo');
+      // console.log('completooooooo');
     });
   }
 

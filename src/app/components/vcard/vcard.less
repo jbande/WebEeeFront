@@ -1,14 +1,18 @@
 #vcard {
   padding: 1em;
+  padding-bottom: 4em;
   box-shadow: 0 0 5px darkgray;
   transition: all .3s ease;
   cursor: pointer;
   margin-top: 0;
   margin-bottom: 2em;
-  height: 530px;
+  height: auto;
   position: relative;
   //max-height: 190px;
 
+  @media (min-width: 992px) {
+    padding-bottom: 3em;
+  }
 
   &:hover {
     transition: all .3s ease;
@@ -57,7 +61,8 @@
       font-size: 18px;
       letter-spacing: 0;
       margin-top: 1em;
-      height: 50px;
+      height: auto;
+      //height: 50px;
       vertical-align: middle;
     }
     .piece-date {
